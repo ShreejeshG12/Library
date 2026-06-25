@@ -88,19 +88,52 @@ function populateBook() {
 };
 
 
-populateBook();
 
-//Starting DOM manipulation
 
-//Defining Selectors
+const add = document.querySelector(".add");
+const dialogbox = document.createElement("dialog");
+dialogbox.classList.add("dialogbox")
 
-/*
-const book = document.querySelector(".book")
-const id = document.querySelector(".Id")
-const name = document.querySelector(".name")
-const author = document.querySelector(".author")
-const pages = document.querySelector(".pages")
-const status = document.querySelector(".status")
-const read = document.querySelector(".read-status")
-const remove = document.querySelector(".remove")
-*/
+
+dialogbox.innerHTML = `
+    <h2>Add a Book</h2>
+    <label for="title">Title:</label>
+    <input type = "text" id="title" name="title">
+            
+    <label for="author">Author:</label>
+    <input type = "text" id="author" name="author">
+
+    <label for="pages">Pages:</label>
+    <input type = "number" id="pages" name="pages">
+
+    <button class="submit">Submit</button>
+    <button class="close">Cancel</button>
+`;
+
+document.body.appendChild(dialogbox);
+
+add.addEventListener("click", () => {
+
+    dialogbox.showModal();
+});
+
+const cancelBtn = document.querySelector(".close");
+cancelBtn.addEventListener("click", () => {
+    dialogbox.close();
+});
+
+const submitBtn = document.querySelector(".submit");
+submitBtn.addEventListener("click", () => {
+    const title = document.querySelector("#title").value;
+    const author = document.querySelector("#author").value;
+    const pages = document.querySelector("#pages").value;
+
+    const newBook = new Book(title, author, pages);
+    myBooks.push(newBook);
+    dialogbox.close();
+    populateBook();
+
+});
+
+
+
