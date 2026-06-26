@@ -105,6 +105,7 @@ body {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
+    gap: 20px;
 }
 
 .dialogbox[open] {
@@ -115,4 +116,5 @@ body {
 form {
     display: flex;
     flex-direction: column;
+    gap: 5px;
 }
