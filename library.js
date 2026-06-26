@@ -1,5 +1,4 @@
-const myBooks = [{ Id: "7f3c9a21-6d84-4b5e-a912-3f8c7e1d5a60", Title: "The Hobbit", Author: "J.R.R. Tolkien", Pages: 295 },
-{ Id: "b4e8f2c7-91a3-46d0-8c5b-2e7f9a1d6c34", Title: "Harry Potter: Azakaban", Author: "J.K. Rowling", Pages: 500 }
+const myBooks = [
 ];
 
 function Book(title, author, pages) {
@@ -22,6 +21,7 @@ function addBookTomyBooks(title, author, pages) {
 
 function populateBook() {
     const library = document.querySelector(".library");
+    library.innerHTML = "";
     if (myBooks.length === 0) return;
     for (const book of myBooks) {
         const card = document.createElement("div");
@@ -97,17 +97,20 @@ dialogbox.classList.add("dialogbox")
 
 dialogbox.innerHTML = `
     <h2>Add a Book</h2>
-    <label for="title">Title:</label>
-    <input type = "text" id="title" name="title">
-            
-    <label for="author">Author:</label>
-    <input type = "text" id="author" name="author">
+    <form action="" method="post" class="form">
+        <label for="title">Title:</label>
+        <input type = "text" id="title" name="title">
+                
+        <label for="author">Author:</label>
+        <input type = "text" id="author" name="author">
 
-    <label for="pages">Pages:</label>
-    <input type = "number" id="pages" name="pages">
+        <label for="pages">Pages:</label>
+        <input type = "number" id="pages" name="pages">
 
-    <button class="submit">Submit</button>
-    <button class="close">Cancel</button>
+        <button class="submit" type="button">Submit</button>
+        <button class="close" type="button">Cancel</button>
+
+    </form>
 `;
 
 document.body.appendChild(dialogbox);
@@ -117,20 +120,23 @@ add.addEventListener("click", () => {
     dialogbox.showModal();
 });
 
-const cancelBtn = document.querySelector(".close");
+const cancelBtn = dialogbox.querySelector(".close");
 cancelBtn.addEventListener("click", () => {
     dialogbox.close();
 });
 
-const submitBtn = document.querySelector(".submit");
+const submitBtn = dialogbox.querySelector(".submit");
 submitBtn.addEventListener("click", () => {
-    const title = document.querySelector("#title").value;
-    const author = document.querySelector("#author").value;
-    const pages = document.querySelector("#pages").value;
+    const title = dialogbox.querySelector("#title").value;
+    const author = dialogbox.querySelector("#author").value;
+    const pages = dialogbox.querySelector("#pages").value;
 
     const newBook = new Book(title, author, pages);
     myBooks.push(newBook);
+    const form = dialogbox.querySelector(".form")
+    form.reset();
     dialogbox.close();
+
     populateBook();
 
 });
