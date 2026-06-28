@@ -1,6 +1,7 @@
 const myBooks = [
 ];
 
+// Constructor Function
 function Book(title, author, pages) {
     this.Id = crypto.randomUUID();
     this.Title = title;
@@ -16,7 +17,6 @@ function addBookTomyBooks(title, author, pages) {
     const book = new Book(title, author, pages);
     myBooks.push(book);
 
-    return myBooks;
 };
 
 function populateBook() {
@@ -70,7 +70,9 @@ function populateBook() {
         remove.textContent = "Remove";
 
         remove.addEventListener("click", () => {
-            card.remove();
+            const index = myBooks.findIndex(b => b.Id === book.Id);
+            myBooks.splice(index, 1);
+            populateBook();
         })
 
 
@@ -131,8 +133,8 @@ submitBtn.addEventListener("click", () => {
     const author = dialogbox.querySelector("#author").value;
     const pages = dialogbox.querySelector("#pages").value;
 
-    const newBook = new Book(title, author, pages);
-    myBooks.push(newBook);
+    addBookTomyBooks(title, author, pages);
+
     const form = dialogbox.querySelector(".form")
     form.reset();
     dialogbox.close();
